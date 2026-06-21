@@ -20,14 +20,30 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+ALLOWED_USERS: set[int] = set()
+raw = os.environ.get("TELEGRAM_ALLOWED_USERS", "")
+if raw:
+    ALLOWED_USERS = {int(uid.strip()) for uid in raw.split(",") if uid.strip()}
+
+
+def is_allowed(update: Update) -> bool:
+    if not ALLOWED_USERS:
+        return True
+    user_id = update.effective_user.id if update.effective_user else None
+    return user_id in ALLOWED_USERS if user_id else False
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if not is_allowed(update):
+        return
     await update.message.reply_text(
         "Send me a .gpx file and I'll smooth out GPS gaps."
     )
 
 
 async def handle_gpx(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if not is_allowed(update):
+        return
     document = update.message.document
     if not document or not document.file_name.endswith(".gpx"):
         await update.message.reply_text("Please send a .gpx file.")
