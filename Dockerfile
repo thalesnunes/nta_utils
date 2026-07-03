@@ -4,9 +4,9 @@ RUN pip install uv
 
 WORKDIR /app
 
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml uv.lock README.md ./
 RUN uv sync --frozen --no-dev
 
-COPY . .
+COPY src/ src/
 
-CMD ["uv", "run", "python", "main.py"]
+CMD ["uv", "run", "python", "-m", "nta_utils"]

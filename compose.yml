@@ -1,5 +1,0 @@
-services:
-  gpx_transformer_bot:
-    build: .
-    env_file: .env
-    restart: unless-stopped

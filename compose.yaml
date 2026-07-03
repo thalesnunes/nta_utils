@@ -1,0 +1,9 @@
+name: nta_utils
+services:
+  nta_utils:
+    container_name: nta_utils
+    build: .
+    env_file: .env
+    volumes:
+      - ./app/credentials:/app/credentials:ro
+    restart: unless-stopped
