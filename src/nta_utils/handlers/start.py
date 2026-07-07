@@ -9,6 +9,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
     await update.message.reply_text(
         "Me envie um arquivo .gpx e eu vou suavizar as falhas de GPS.\n"
-        "Use /folgas seguido dos números dos dias (ex: /folgas 15 22 29) para criar eventos de folga."
+        "Use /folgas seguido dos números dos dias (ex: /folgas 15 22 29) para criar eventos de folga.\n"
         "Use /escala para enviar seu print da escala e criar suas folgas e plantões automaticamente."
     )
