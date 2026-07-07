@@ -17,31 +17,31 @@ async def days_off(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     if not GCAL_CALENDAR_ID:
-        await update.message.reply_text("Google Calendar is not configured.")
+        await update.message.reply_text("Google Calendar não está configurado.")
         return
 
     raw_args = context.args
     if not raw_args:
         await update.message.reply_text(
-            "Usage: /days_off 15 22 29\n"
-            "Provide one or more day-of-month numbers."
+            "Uso: /folgas 15 22 29\n"
+            "Informe um ou mais números de dias do mês."
         )
         return
 
     try:
         days = [int(arg) for arg in raw_args]
     except ValueError:
-        await update.message.reply_text("All arguments must be numbers (day of month).")
+        await update.message.reply_text("Todos os argumentos devem ser números (dia do mês).")
         return
 
     invalid = [d for d in days if d < 1 or d > 31]
     if invalid:
         await update.message.reply_text(
-            f"Invalid day(s): {', '.join(str(d) for d in invalid)}. Must be 1-31."
+            f"Dia(s) inválido(s): {', '.join(str(d) for d in invalid)}. Deve ser 1-31."
         )
         return
 
-    status_msg = await update.message.reply_text("Creating day-off events...")
+    status_msg = await update.message.reply_text("Criando eventos de folga...")
 
     try:
         loop = asyncio.get_event_loop()
@@ -55,12 +55,12 @@ async def days_off(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             ),
         )
         await status_msg.edit_text(
-            f"Created {len(result['created'])} day(s) off in {result['month']}:\n"
+            f"Criado(s) {len(result['created'])} dia(s) de folga em {result['month']}:\n"
             + "\n".join(f"  - {d}" for d in result["created"])
         )
     except FileNotFoundError as e:
         logger.error("Google Calendar credentials not found: %s", e)
-        await status_msg.edit_text(f"Credentials error: {e}")
+        await status_msg.edit_text(f"Erro nas credenciais: {e}")
     except Exception as e:
         logger.error("Error creating day-off events: %s", e, exc_info=True)
-        await status_msg.edit_text(f"Error: {e}")
+        await status_msg.edit_text(f"Erro: {e}")
