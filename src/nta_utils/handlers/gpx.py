@@ -16,10 +16,10 @@ async def handle_gpx(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         return
     document = update.message.document
     if not document or not document.file_name.endswith(".gpx"):
-        await update.message.reply_text("Please send a .gpx file.")
+        await update.message.reply_text("Por favor, envie um arquivo .gpx.")
         return
 
-    status_msg = await update.message.reply_text("Processing...")
+    status_msg = await update.message.reply_text("Processando...")
 
     try:
         file = await document.get_file()
@@ -36,8 +36,8 @@ async def handle_gpx(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
                     filename=f"smoothed_{document.file_name}",
                 )
             await status_msg.edit_text(
-                f"Done! Added {result['interpolated']} interpolated points."
+                f"Pronto! Adicionado(s) {result['interpolated']} pontos interpolados."
             )
     except Exception as e:
         logger.error("Error processing GPX: %s", e, exc_info=True)
-        await status_msg.edit_text(f"Error: {e}")
+        await status_msg.edit_text(f"Erro: {e}")
