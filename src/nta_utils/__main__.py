@@ -9,7 +9,7 @@ from telegram.ext import (
 
 from nta_utils.config import TELEGRAM_BOT_TOKEN
 from nta_utils.handlers.gcal import days_off
-from nta_utils.handlers.gpx import handle_gpx
+from nta_utils.handlers.gpx import get_gpx_handler
 from nta_utils.handlers.schedule import get_schedule_handler
 from nta_utils.handlers.start import start
 
@@ -29,7 +29,7 @@ def main() -> None:
     app.add_handler(get_schedule_handler())
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("folgas", days_off))
-    app.add_handler(MessageHandler(filters.Document.ALL, handle_gpx))
+    app.add_handler(get_gpx_handler())
 
     logger.info("Bot started")
     app.run_polling()
