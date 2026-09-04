@@ -4,8 +4,9 @@ Telegram bot with utility commands: GPX smoothing and Google Calendar day-off ma
 
 ## Features
 
-- **GPX Smoothing** — Send a `.gpx` file from Samsung Health and get back a smoothed version with GPS gaps interpolated at 1-second intervals (so Strava shows accurate elapsed time).
-- **Days Off** — Use `/days_off 15 22 29` to create "Folga Nati" events on a shared Google Calendar.
+- **GPX Smoothing & Date Modification** — Send a `.gpx` file to interpolate GPS gaps or change the workout date.
+- **Days Off** — Use `/folgas 15 22 29` to create "Folga" events on a shared Google Calendar.
+- **Schedule AI Analysis** — Use `/escala` to send a schedule screenshot; Gemini analyzes the image with structured outputs to detect work days and days off, then creates calendar events.
 
 ## Setup
 
@@ -17,19 +18,29 @@ Telegram bot with utility commands: GPX smoothing and Google Calendar day-off ma
 
 ### 2. Configure
 
-```bash
-cp .env.example .env
-# Edit .env and paste your bot token
+Set the environment variables in your `.env` file:
+
+```env
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_ALLOWED_USERS=123456789
+
+# Google Calendar
+GCAL_CALENDAR_ID=your_calendar_id@group.calendar.google.com
+GCAL_CREDENTIALS_PATH=/app/credentials/credentials.json
+
+# Gemini AI (AI Studio)
+GEMINI_API_KEY=your_gemini_api_key
+GEMINI_MODEL=gemini-3.6-flash
 ```
 
 ### 3. Google Calendar (optional)
 
-If you want the `/days_off` command:
+If you want calendar features (`/folgas` and `/escala`):
 
 1. Create or select a Google Cloud project
 2. Enable the Google Calendar API
 3. Create a Service Account or OAuth credentials
-4. Download the credentials JSON and place it at `./credentials.json` (repo root)
+4. Download the credentials JSON and place it at `./app/credentials/credentials.json`
 5. Set `GCAL_CALENDAR_ID` in `.env` to your target calendar ID
 
 ### 4. Run with Docker Compose
@@ -42,30 +53,33 @@ docker compose up -d
 
 ```bash
 uv sync
-uv run python -m bot
+uv run python -m nta_utils
 ```
 
 ## Usage
 
 1. Open your bot in Telegram
 2. Send `/start` for a welcome message
-3. **GPX**: Send any `.gpx` file — receive the smoothed file back
-4. **Days Off**: Send `/days_off 15 22 29` — events are created on the configured calendar
+3. **GPX**: Send any `.gpx` file — choose to smooth, change date, or both
+4. **Days Off**: Send `/folgas 15 22 29` — creates day-off events
+5. **Schedule**: Send `/escala` and upload a schedule screenshot — Gemini extracts work days and days off
 
 ## Project structure
 
 ```
-src/bot/
-├── __main__.py          # Entry point
-├── config.py            # Environment variable loading
-├── auth.py              # User whitelist
+src/nta_utils/
+├── __main__.py              # Entry point
+├── config.py                # Environment variable loading
+├── auth.py                  # User whitelist check
 ├── handlers/
-│   ├── start.py         # /start command
-│   ├── gpx.py           # GPX file handler
-│   └── gcal.py          # /days_off command
+│   ├── start.py             # /start command
+│   ├── gpx.py               # GPX file handler
+│   ├── gcal.py              # /folgas command
+│   └── schedule.py          # /escala conversation (Gemini → calendar)
 └── services/
-    ├── gpx_transformer.py  # GPX interpolation logic
-    └── gcal.py             # Google Calendar integration
+    ├── gpx_transformer.py   # GPX interpolation logic
+    ├── gcal.py              # Google Calendar integration
+    └── schedule_parser.py   # Gemini structured output schedule parser
 ```
 
 ## Security
