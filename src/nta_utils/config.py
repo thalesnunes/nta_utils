@@ -15,3 +15,6 @@ GCAL_CALENDAR_ID: str = os.environ.get("GCAL_CALENDAR_ID", "")
 GCAL_CREDENTIALS_PATH: Path = Path(
     os.environ.get("GCAL_CREDENTIALS_PATH", "/app/credentials/credentials.json")
 )
+
+GEMINI_API_KEY: str = os.environ.get("GEMINI_API_KEY", "")
+GEMINI_MODEL: str = os.environ.get("GEMINI_MODEL", "gemini-3.6-flash")

@@ -23,11 +23,11 @@ src/nta_utils/
 │   ├── start.py             # /start command
 │   ├── gpx.py               # GPX file upload handler
 │   ├── gcal.py              # /folgas command
-│   └── schedule.py          # /escala conversation (OCR → calendar)
+│   └── schedule.py          # /escala conversation (Gemini multimodal → calendar)
 └── services/
     ├── gpx_transformer.py   # GPX interpolation logic
     ├── gcal.py              # Google Calendar API wrapper
-    └── schedule_parser.py   # OCR schedule image parsing
+    └── schedule_parser.py   # Gemini structured output schedule image parsing
 ```
 
 ## Environment Variables
@@ -36,6 +36,8 @@ src/nta_utils/
 - `TELEGRAM_ALLOWED_USERS` - Optional. Comma-separated Telegram user IDs for access control
 - `GCAL_CALENDAR_ID` - Required for calendar features. Google Calendar ID
 - `GCAL_CREDENTIALS_PATH` - Optional. Path to Google credentials JSON (default: `/app/credentials/credentials.json`)
+- `GEMINI_API_KEY` - Required for schedule analysis. Google AI Studio API key
+- `GEMINI_MODEL` - Optional. Gemini model name (default: `gemini-3.6-flash`)
 
 ## Development
 
@@ -57,8 +59,8 @@ docker compose up -d
 - `python-telegram-bot>=21.0` - Telegram Bot API
 - `gcsa>=2.0` - Google Calendar Simple API
 - `gpx>=2026.3.0` - GPX file handling
-- `Pillow>=10.0` - Image processing
-- `pytesseract>=0.3.10` - OCR for schedule parsing
+- `google-genai>=2.0.0` - Google GenAI SDK for Gemini multimodal analysis
+- `pydantic>=2.0` - Schema validation for structured outputs
 
 ## Conventions
 

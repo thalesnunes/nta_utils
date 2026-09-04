@@ -13,7 +13,7 @@ from telegram.ext import (
 )
 
 from nta_utils.auth import is_allowed
-from nta_utils.config import GCAL_CALENDAR_ID, GCAL_CREDENTIALS_PATH
+from nta_utils.config import GCAL_CALENDAR_ID, GCAL_CREDENTIALS_PATH, GEMINI_API_KEY
 from nta_utils.services.gcal import create_days_off, create_work_days
 from nta_utils.services.schedule_parser import ParsedSchedule, parse_schedule_image
 
@@ -28,6 +28,10 @@ async def parse_schedule(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     if not GCAL_CALENDAR_ID:
         await update.message.reply_text("Google Calendar não está configurado.")
+        return ConversationHandler.END
+
+    if not GEMINI_API_KEY:
+        await update.message.reply_text("Chave de API do Gemini (GEMINI_API_KEY) não está configurada.")
         return ConversationHandler.END
 
     await update.message.reply_text(
