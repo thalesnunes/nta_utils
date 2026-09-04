@@ -27,11 +27,33 @@ TELEGRAM_ALLOWED_USERS=123456789
 # Google Calendar
 GCAL_CALENDAR_ID=your_calendar_id@group.calendar.google.com
 GCAL_CREDENTIALS_PATH=/app/credentials/credentials.json
+GCAL_DAY_OFF_TITLE=Folga
+GCAL_DAY_OFF_COLOR=flamingo
+GCAL_WORK_DAY_TITLE=Uro
+GCAL_WORK_DAY_COLOR=peacock
 
 # Gemini AI (AI Studio)
 GEMINI_API_KEY=your_gemini_api_key
 GEMINI_MODEL=gemini-3.6-flash
 ```
+
+#### Available Event Colors
+
+You can set `GCAL_DAY_OFF_COLOR` and `GCAL_WORK_DAY_COLOR` using either names or numeric IDs (from Google Calendar API palette):
+
+| Name | ID | Hex Preview |
+| :--- | :--- | :--- |
+| `lavender` | 1 | #a4bdfc |
+| `sage` | 2 | #7ae7bf |
+| `grape` | 3 | #dbadff |
+| `flamingo` | 4 | #ff887c |
+| `banana` | 5 | #fbd75b |
+| `tangerine` | 6 | #ffb878 |
+| `peacock` | 7 | #46d6db |
+| `graphite` | 8 | #e1e1e1 |
+| `blueberry` | 9 | #5484ed |
+| `basil` | 10 | #51b749 |
+| `tomato` | 11 | #dc2127 |
 
 ### 3. Google Calendar (optional)
 
