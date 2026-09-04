@@ -36,6 +36,10 @@ src/nta_utils/
 - `TELEGRAM_ALLOWED_USERS` - Optional. Comma-separated Telegram user IDs for access control
 - `GCAL_CALENDAR_ID` - Required for calendar features. Google Calendar ID
 - `GCAL_CREDENTIALS_PATH` - Optional. Path to Google credentials JSON (default: `/app/credentials/credentials.json`)
+- `GCAL_DAY_OFF_TITLE` - Optional. Event title for days off (default: `Folga`, fallback: `GCAL_DAY_OFF_NAME`)
+- `GCAL_DAY_OFF_COLOR` - Optional. Event color for days off (default: `flamingo`). Accepts names (`lavender`, `sage`, `grape`, `flamingo`, `banana`, `tangerine`, `peacock`, `graphite`, `blueberry`, `basil`, `tomato`) or color IDs (`1`-`11`)
+- `GCAL_WORK_DAY_TITLE` - Optional. Event title for work days (default: `Uro`, fallback: `GCAL_WORK_DAY_NAME`)
+- `GCAL_WORK_DAY_COLOR` - Optional. Event color for work days (default: `peacock`). Accepts names or color IDs (`1`-`11`)
 - `GEMINI_API_KEY` - Required for schedule analysis. Google AI Studio API key
 - `GEMINI_MODEL` - Optional. Gemini model name (default: `gemini-3.6-flash`)
 
