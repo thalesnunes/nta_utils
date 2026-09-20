@@ -5,6 +5,7 @@ description = "Telegram bot for NTA utils"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "fit-tool>=0.9.16",
     "gcsa>=2.0",
     "google-genai>=2.0.0",
     "gpx>=2026.3.0",

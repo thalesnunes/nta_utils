@@ -10,7 +10,8 @@ Telegram bot for utility commands: GPX smoothing and Google Calendar day-off man
 - `/folgas <days...>` - Create "Folga" events on Google Calendar for specified days
 - `/escala` - Send a schedule screenshot to auto-create work/off events
 - `/cancelar` - Cancel current conversation
-- Any `.gpx` file - Smoothed GPX file returned
+- Any `.gpx` file - Smoothed GPX file and/or changed date returned
+- Any `.fit` file - Changed date returned
 
 ## Project Structure
 
@@ -22,10 +23,12 @@ src/nta_utils/
 ├── handlers/
 │   ├── start.py             # /start command
 │   ├── gpx.py               # GPX file upload handler
+│   ├── fit.py               # FIT file upload handler (date changing)
 │   ├── gcal.py              # /folgas command
 │   └── schedule.py          # /escala conversation (Gemini multimodal → calendar)
 └── services/
     ├── gpx_transformer.py   # GPX interpolation logic
+    ├── fit_transformer.py   # FIT file date shifting logic
     ├── gcal.py              # Google Calendar API wrapper
     └── schedule_parser.py   # Gemini structured output schedule image parsing
 ```
@@ -63,6 +66,7 @@ docker compose up -d
 - `python-telegram-bot>=21.0` - Telegram Bot API
 - `gcsa>=2.0` - Google Calendar Simple API
 - `gpx>=2026.3.0` - GPX file handling
+- `fit-tool>=0.9.16` - FIT file handling
 - `google-genai>=2.0.0` - Google GenAI SDK for Gemini multimodal analysis
 - `pydantic>=2.0` - Schema validation for structured outputs
 

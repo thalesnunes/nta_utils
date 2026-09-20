@@ -193,6 +193,7 @@ pyrightconfig.json
 # Environment
 .env
 *.gpx
+*.fit
 
 # Google Calendar credentials
 credentials.json
