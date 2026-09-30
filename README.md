@@ -5,6 +5,7 @@ Telegram bot with utility commands: GPX smoothing and Google Calendar day-off ma
 ## Features
 
 - **GPX Smoothing & Date Modification** — Send a `.gpx` file to interpolate GPS gaps or change the workout date.
+- **FIT Date Modification** — Send a `.fit` file to change the workout session date.
 - **Days Off** — Use `/folgas 15 22 29` to create "Folga" events on a shared Google Calendar.
 - **Schedule AI Analysis** — Use `/escala` to send a schedule screenshot; Gemini analyzes the image with structured outputs to detect work days and days off, then creates calendar events.
 
@@ -83,8 +84,9 @@ uv run python -m nta_utils
 1. Open your bot in Telegram
 2. Send `/start` for a welcome message
 3. **GPX**: Send any `.gpx` file — choose to smooth, change date, or both
-4. **Days Off**: Send `/folgas 15 22 29` — creates day-off events
-5. **Schedule**: Send `/escala` and upload a schedule screenshot — Gemini extracts work days and days off
+4. **FIT**: Send any `.fit` file — enter the new date (YYYY-MM-DD) to shift the session date
+5. **Days Off**: Send `/folgas 15 22 29` — creates day-off events
+6. **Schedule**: Send `/escala` and upload a schedule screenshot — Gemini extracts work days and days off
 
 ## Project structure
 
@@ -96,10 +98,12 @@ src/nta_utils/
 ├── handlers/
 │   ├── start.py             # /start command
 │   ├── gpx.py               # GPX file handler
+│   ├── fit.py               # FIT file handler (date changing)
 │   ├── gcal.py              # /folgas command
 │   └── schedule.py          # /escala conversation (Gemini → calendar)
 └── services/
     ├── gpx_transformer.py   # GPX interpolation logic
+    ├── fit_transformer.py   # FIT file date shifting logic
     ├── gcal.py              # Google Calendar integration
     └── schedule_parser.py   # Gemini structured output schedule parser
 ```

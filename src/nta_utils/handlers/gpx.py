@@ -210,7 +210,7 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def get_gpx_handler() -> ConversationHandler:
     return ConversationHandler(
-        entry_points=[MessageHandler(filters.Document.ALL, receive_gpx)],
+        entry_points=[MessageHandler(filters.Document.FileExtension("gpx"), receive_gpx)],
         states={
             SELECTING_ACTION: [
                 CallbackQueryHandler(handle_action, pattern="^(smooth|change_date|both)$"),
