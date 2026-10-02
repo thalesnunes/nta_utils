@@ -86,7 +86,7 @@ uv run python -m nta_utils
 3. **GPX**: Send any `.gpx` file — choose to smooth, change date, or both
 4. **FIT**: Send any `.fit` file — enter the new date (YYYY-MM-DD) to shift the session date
 5. **Days Off**: Send `/folgas 15 22 29` — creates day-off events
-6. **Schedule**: Send `/escala` and upload a schedule screenshot — Gemini extracts work days and days off
+6. **Schedule**: Send `/escala` (or send the screenshot directly with `/escala` as caption) — Gemini extracts work days and days off
 
 ## Project structure
 

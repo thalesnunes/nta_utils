@@ -8,7 +8,7 @@ Telegram bot for utility commands: GPX smoothing and Google Calendar day-off man
 
 - `/start` - Welcome message and usage instructions
 - `/folgas <days...>` - Create "Folga" events on Google Calendar for specified days
-- `/escala` - Send a schedule screenshot to auto-create work/off events
+- `/escala` - Send a schedule screenshot (or send an image directly with `/escala` in the caption) to auto-create work/off events
 - `/cancelar` - Cancel current conversation
 - Any `.gpx` file - Smoothed GPX file and/or changed date returned
 - Any `.fit` file - Changed date returned
